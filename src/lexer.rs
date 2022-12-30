@@ -1,5 +1,4 @@
 use regex::bytes::Regex;
-
 #[derive(Debug)]
 pub struct Token {
     value: TokenValue,
@@ -88,7 +87,7 @@ impl<'a> Lexer<'a> {
     }
 
     fn try_extract_number(&mut self) -> Option<Token> {
-        let regex = Regex::new(r"^\d+").unwrap();
+        let regex: Regex = Regex::new(r"^\d+").ok()?;
         let m = regex.find(&self.cstream[self.it..])?;
         let val: i32 = m.as_bytes()
                         .into_iter()
